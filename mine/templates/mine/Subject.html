@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Login V19</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+<!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <!--<link rel="icon" type="image/png" href="{% static "images/icons/favicon.ico" %}"/>-->
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/bootstrap/css/bootstrap.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/animate/animate.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/css-hamburgers/hamburgers.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/animsition/css/animsition.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/select2/select2.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/daterangepicker/daterangepicker.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/css/util.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "mine/css/main.css" %}">
+<!--===============================================================================================-->
+</head>
+<body>
+        <div class="limiter">
+                <div class="container-login100">
+                        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+                                <form class="login100-form validate-form" method="POST" action = "/sub/">
+                                 {% csrf_token %}
+        
+                                        <span class="login100-form-title p-b-33">
+                                                 GNDEC
+                                        </span>
+
+                                        <div class="wrap-input100 validate-input" >
+
+                                        <!--<input class="input100" type="text" name="subject_name" placeholder="Subject Name">-->
+
+                                        <select name="subject" id="subject" required>
+                        <option disabled="disabled" selected="selected"  value="">Subject Name</option>
+                                            {% for subject_object in subject_objects %}
+      <option >{{ subject_object.subject}}</option>
+                        {% endfor %}
+
+
+
+        
+
+                                        </select>
+                                                                                <span class="focus-input100-1"></span>
+                                                <span class="focus-input100-2"></span>
+                                        </div>
+
+                                                                               <div class="wrap-input100 validate-input" >
+
+                                        <!--<input class="input100" type="text" name="subject_name" placeholder="Subject Name">-->
+
+                                        <select name="options" id="option" required>
+                        <option disabled="disabled" selected="selected" value="options">Choice</option>
+                                            <option value="ASSIGNMENT">Assignment</option>
+                                            <option value="STUDYMATERIAL">Study Material</option>
+                                            <option value="PAPER">Paper</option>
+
+
+
+
+                                        </select>
+                                                                                <span class="focus-input100-1"></span>
+                                                <span class="focus-input100-2"></span>
+                                        </div>
+
+
+                        <div class="container-login100-form-btn m-t-20">
+                                                <button class="login100-form-btn">
+                                                        Sign in
+                                                </button>
+ </div>
+<!--
+                                        <div class="text-center p-t-45 p-b-4">
+                                                <span class="txt1">
+                                                        Forgot
+                                                </span>
+
+                                                <a href="#" class="txt2 hov1">
+                                                        Username / Password?
+                                                </a>
+                                        </div>
+
+                                        <div class="text-center">
+                                                <span class="txt1">
+                                                        Create an account?
+                                                </span>
+
+  <a href="#" class="txt2 hov1">
+                                                        Sign up
+                                                </a>
+                                                </div>-->
+
+                                </form>
+                        </div>
+                </div>
+        </div>
+
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/jquery/jquery-3.2.1.min.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/animsition/js/animsition.min.js" %}"></script>
+<!--===============================================================================================-->
+  <script src="{% static "mine/vendor/bootstrap/js/popper.js" %}"></script>
+        <script src="{% static "mine/vendor/bootstrap/js/bootstrap.min.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/select2/select2.min.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/daterangepicker/moment.min.js" %}"></script>
+        <script src="{% static "mine/vendor/daterangepicker/daterangepicker.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/countdowntime/countdowntime.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/js/main.js" %}"></script>
+
+</body>
+</html>
+

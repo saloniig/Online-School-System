@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Login V19</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+tr,th,td, table {
+        border: 1px solid black;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th {
+  height: 40px;
+}
+th, td {
+  padding: 15px;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+</style>
+        {% load static %}
+<!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <!--<link rel="icon" type="image/png" href="{% static "images/icons/favicon.ico" %}"/>-->
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/bootstrap/css/bootstrap.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/animate/animate.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/css-hamburgers/hamburgers.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/animsition/css/animsition.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/select2/select2.min.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/vendor/daterangepicker/daterangepicker.css" %}">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static "mine/css/util.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "mine/css/main.css" %}">
+<!--===============================================================================================-->
+</head>
+<body>
+                <div class="limiter">
+                <div class="container-login100">
+                        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+                                <div class="login100-form validate-form" >
+                                 {#% csrf_token %#}
+                                        <span class="login100-form-title p-b-33">
+                                                 GNDEC
+                                        </span>
+
+
+
+                                <!--    <div class="wrap-input100 rs1 validate-input" >
+                                               <input class="input100" type="text" name="pass" placeholder="Subject ">
+                                                <span class="focus-input100-1"></span>
+                                                <span class="focus-input100-2"></span>
+                                        </div>
+                                        -->
+
+
+
+                                        <div class="wrap-input100 validate-input" >
+
+                                        <!--<input class="input100" type="text" name="subject_name" placeholder="Subject Name">-->
+
+                                        <select name="subject" id="subject" required>
+                        <option disabled="disabled" selected="selected"  value="">Subject Name</option>
+                                               {% for subject_object in subject_objects %}
+                                         <option value = {{ subject_object.id }}>{{ subject_object.subject}}</option>
+                        {% endfor %}
+        <!--  <option value="M1">M1</option>
+                                            <option value="DE">DE</option>
+                                            <option value="M2">M2</option>
+                                            <option value="M3">M3</option>
+                                            <option value="CN">CN</option>
+                                            <option value="BEE">BEE</option>
+
+-->
+
+
+                                        </select>
+                                                                                <span class="focus-input100-1"></span>
+                                                <span class="focus-input100-2"></span>
+                                        </div>
+
+                                        <select name="options" id="option" required>
+                                            <option value="Assignment">Assignment</option>
+
+                                            <option value="Paper">Paper</option>
+
+                                            <option value="StudyMaterial">Study Material</option>
+                                        </select>
+<div class="container-login100-form-btn m-t-20">
+                                                <button class="login100-form-btn" name="search" id="search">
+                                                        Search
+                                                </button>
+                                        </div>
+
+
+        <table id="myTable">
+            <thead>
+                            <tr>
+                                                            </thead>
+                                                                <tbody>
+                                                                                <tr id="insert">
+                                                                                                            </tr>
+                                                                                                                </tbody>
+
+                        </div>
+                </div>
+        </div>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $('.login100-form-btn').click(function(){
+    var catid;
+//    catid = $(this).attr("data-catid");
+            subject = document.getElementById("subject");
+            option = document.getElementById("option");
+    $.ajax(
+    {
+        type:"GET",
+        url: "/search",
+        data:{
+                 subject: subject.value,
+                option: option.value
+        },
+        success: function( data )
+        {
+                data = JSON.parse(data);
+                var body = document.body;
+                counter = 0;
+                var insert = document.getElementById("insert");
+                if(option.value == "Assignment" && data[0]["fields"]["assignment_no"]!=undefined){
+
+               var new_row = insert.parentNode.insertRow( );
+                        new_row.insertCell(0).innerHTML = "<b>Assignment number</b>";
+                new_row.insertCell(1).innerHTML ="<b>Assignment</b>";
+
+                $.each(data, function(key, value){
+                        if(option.value == "Assignment"){
+                        console.log(data[counter]["fields"]["assignment_no"]);
+
+                var new_row = insert.parentNode.insertRow( );
+                put_data = data[counter]["fields"]["assignment_no"];
+                put_data = put_data.replace(/\n/g, "<br />");
+                new_row.insertCell(0).innerHTML = put_data;
+
+                put_data = data[counter]["fields"]["assignment"];
+                put_data = put_data.replace(/\n/g, "<br />");
+                new_row.insertCell(1).innerHTML = put_data;
+
+                                       /*                              var newText  = document.createTextNode((data[counter]["fields"]["assi$
+                                newCell.appendChild(newText);*/
+                                console.log(data[counter]["fields"]["assignment"]);}
+                counter = counter +1;
+                });
+                }
+
+                else if(option.value=="Paper" && data[0]["fields"]["year"]!=undefined){
+                  var new_row = insert.parentNode.insertRow( );
+                new_row.insertCell(0).innerHTML = "<b>Year</b>";
+                new_row.insertCell(1).innerHTML ="<b>Paper</b>";
+
+                $.each(data, function(key, value){
+
+                var new_row = insert.parentNode.insertRow( );
+
+                put_data = data[counter]["fields"]["year"];
+                put_data = put_data.replace(/\n/g, "<br />");
+                new_row.insertCell(0).innerHTML = put_data;
+
+                put_data = data[counter]["fields"]["paper"];
+                put_data = put_data.replace(/\n/g, "<br />");
+                        new_row.insertCell(1).innerHTML = put_data;
+                        counter = counter + 1;
+                });
+                }
+                else if(option.value == "StudyMaterial" && data[0]["fields"]["book"]!=undefined){
+                  var new_row = insert.parentNode.insertRow( );
+                new_row.insertCell(0).innerHTML = "<b>Book</b>";
+                new_row.insertCell(1).innerHTML ="<b>Author</b>";
+                new_row.insertCell(1).innerHTML ="<b>Details</b>";
+                $.each(data, function(key, value){
+
+                var new_row = insert.parentNode.insertRow( );
+                put_data = data[counter]["fields"]["book"];
+                put_data = put_data.replace(/\n/g, "<br />");
+                new_row.insertCell(0).innerHTML = put_data;
+
+                put_data = data[counter]["fields"]["author"];
+                put_data = put_data.replace(/\n/g, "<br />");
+                new_row.insertCell(1).innerHTML = put_data;
+
+                put_data = data[counter]["fields"]["details"];
+                put_data = put_data.replace(/\n/g, "<br />");
+                new_row.insertCell(2).innerHTML = put_data;
+                        counter = counter +1;
+                });
+
+}
+/*var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+
+                                // Insert a row in the table at the last row
+                  
+                                // Append a text node to the cell
+        //console.log(data);
+                                var newRow   = tableRef.insertRow();
+                  
+                                // Insert a cell in the row at index 0
+                                var newCell  = newRow.insertCell(0);*/
+//                $.each(data, function(key, value){
+//                        if(option.value == "Assignment"){
+//                        console.log(data[counter]["fields"]["assignment_no"]);
+//
+//                var new_row = insert.parentNode.insertRow( );
+//                new_row.insertCell(0).innerHTML = data[counter]["fields"]["assignment_no"];
+//                new_row.insertCell(1).innerHTML = data[counter]["fields"]["assignment"];
+///*                              var newText  = document.createTextNode((data[counter]["fields"]["assignment"]));
+//                                newCell.appendChild(newText);*/
+//                                console.log(data[counter]["fields"]["assignment"]);}
+//                
+//                        else if(option.value == "Paper"){
+//                        console.log(data[counter]["fields"]["year"]);
+//
+//                var new_row = insert.parentNode.insertRow( );
+//                new_row.insertCell(0).innerHTML = data[counter]["fields"]["year"];
+//                new_row.insertCell(1).innerHTML = data[counter]["fields"]["paper"];
+//                        /*      var newText  = document.createTextNode(data[counter]["fields"]["year"]);
+//                                newCell.appendChild(newText);
+//
+//                                var newText  = document.createTextNode(data[counter]["fields"]["paper"]);
+//                                newCell.appendChild(newText);*/
+//                                console.log(data[counter]["fields"]["paper"]);}
+//                        else if(option.value == "StudyMaterial"){
+//                        console.log(data[counter]["fields"]["book"]);
+//
+//                var new_row = insert.parentNode.insertRow( );
+//                new_row.insertCell(0).innerHTML = data[counter]["fields"]["book"];
+//                new_row.insertCell(1).innerHTML = data[counter]["fields"]["author"];
+//                new_row.insertCell(2).innerHTML = data[counter]["fields"]["details"];
+//                                console.log(data[counter]["fields"]["author"]);
+//                                console.log(data[counter]["fields"]["details"]);}
+//                        counter = counter + 1;
+//                });
+
+        }
+     })
+});
+</script>
+
+
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/jquery/jquery-3.2.1.min.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/animsition/js/animsition.min.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/bootstrap/js/popper.js" %}"></script>
+        <script src="{% static "mine/vendor/bootstrap/js/bootstrap.min.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/select2/select2.min.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/vendor/daterangepicker/moment.min.js" %}"></script>
+        <script src="{% static "mine/vendor/daterangepicker/daterangepicker.js" %}"></script>
+<!--===============================================================================================-->        <script src="{% static "mine/vendor/countdowntime/countdowntime.js" %}"></script>
+<!--===============================================================================================-->
+        <script src="{% static "mine/js/main.js" %}"></script>
+</body>
+</html>
+
